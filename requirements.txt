@@ -1,13 +1,4 @@
-certifi
-chardet
-click
 Flask
-idna
-itsdangerous
-Jinja2
-joblib
-jsonify
-MarkupSafe
 numpy
 requests
 scikit-learn
@@ -19,3 +10,4 @@ Werkzeug
 wincertstore
 pandas
 gunicorn
+pickle
