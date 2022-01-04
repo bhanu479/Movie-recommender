@@ -4,8 +4,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 movies_data = pd.read_csv("movies_data.csv")
-movie_list = pickle.load(open('movies.pkl','rb'))
-movies = pd.DataFrame(movie_list)
+movies = pd.read_csv("movies_tags.csv")
 cv = CountVectorizer(max_features=5000,stop_words='english')
 vectors = cv.fit_transform(movies.tags).toarray()
 similarity = cosine_similarity(vectors)
