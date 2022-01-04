@@ -10,4 +10,3 @@ Werkzeug
 wincertstore
 pandas
 gunicorn
-pickle
