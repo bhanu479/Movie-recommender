@@ -10,8 +10,8 @@ def create_similarity(data):
     vectors = cv.fit_transform(data.tags).toarray()
     similarity = cosine_similarity(vectors)
     return similarity
-similarity = create_similarity(movies)
 def recommender(movie):
+    similarity = create_similarity(movies)
     movie_index = movies[movies['title']==movie].index[0]
     distances = similarity[movie_index]
     movies_list = sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:6]
