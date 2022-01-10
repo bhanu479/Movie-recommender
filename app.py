@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, redirect
 import pickle
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
+from joblib import load
 from sklearn.metrics.pairwise import cosine_similarity
 movies_data = pd.read_csv("movies_data.csv")
 movies = pd.read_csv("movies_tags.csv")
 def recommender(movie):
-    similarity = pickle.load(open('similarity.pkl','rb'))
+    similarity = load('similarity.joblib')
     movie_index = movies[movies['title']==movie].index[0]
     distances = similarity[movie_index]
     movies_list = sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:6]
