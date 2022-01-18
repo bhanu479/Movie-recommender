@@ -1,29 +1,11 @@
 from flask import Flask, render_template, request
 import pandas as pd
 from joblib import load
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from similarity import recommender
 movies_data = pd.read_csv("movies_data.csv")
 movies = pd.read_csv("movies_tags.csv")
 poster = pd.read_csv("poster.csv")
-def create_similarity(data):
-    cv = CountVectorizer(max_features=5000,stop_words='english')
-    vectors = cv.fit_transform(data.tags).toarray()
-    similarity = cosine_similarity(vectors)
-    return similarity
-def recommender(movie):
-    similarity = create_similarity(movies)
-    movie_index = movies[movies['title']==movie].index[0]
-    distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:11]
-    x = pd.DataFrame()
-    for i in movies_list:
-        y = {'id':movies.iloc[i[0]].id,'movies':movies.iloc[i[0]].title}
-        x = x.append(y,ignore_index=True)
-    return x
-
 app = Flask(__name__)
-
 @app.route('/',methods=['GET','POST'])
 def Home():
     movies_title = list(movies['title'].values)
